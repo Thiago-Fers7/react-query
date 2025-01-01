@@ -5,6 +5,7 @@ export type User = {
   id: number;
   name: string;
   email: string;
+  createdAt: Date;
 }
 
 export function useUser(userId: string) {

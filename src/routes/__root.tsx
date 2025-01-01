@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
     queries: {
       retry: false,
       refetchOnWindowFocus: false,
-      staleTime: 5000,
+      staleTime: 30000,
     }
   }
 })
@@ -30,7 +30,10 @@ function RootComponent() {
           </Link>
         </li>
         <li>
-          <Link to="/users" className="text-blue-500 hover:text-blue-700 [&.active]:text-green-300">Users</Link>
+          <Link to="/users" className="text-blue-500 hover:text-blue-700 [&.active]:text-green-300">Usuários</Link>
+        </li>
+        <li>
+          <Link to="/create-user" className="text-blue-500 hover:text-blue-700 [&.active]:text-green-300">Criar usuário</Link>
         </li>
       </ul>
 

@@ -27,7 +27,7 @@ export function Users() {
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-10"
         disabled={isFetching}
       >
-        Listar usuários
+        {!isLoading && isFetching ? 'Carregando...' : 'Atualizar listagem'}
       </button>
 
       {isLoading && <p>Carregando...</p>}
@@ -40,29 +40,34 @@ export function Users() {
             Usuários
           </h1>
 
-          <ul>
+          <ul className="grid gap-6 md:grid-cols-2">
             {users.map(user => (
-              <li 
-              key={user.id}
-              className="mb-5 border p-4 border-gray-500 rounded-lg w-min whitespace-nowrap"
+              <li
+                key={user.id}
+                className="border p-4 border-gray-500 rounded-lg flex justify-between items-center"
               >
-                <p>{user.name} - {user.email}</p>
-                <Link
-                  to="/profile/$userId"
-                  params={{ userId: String(user.id) }}
-                  preload="intent"
-                  onMouseEnter={() => handleMouseEnter(String(user.id))}
-                  className="text-blue-500 hover:underline text-base"
-                >
-                  Ver detalhes
-                </Link>
+                <div className="overflow-hidden  w-1/2">
+                  <p className="overflow-hidden text-ellipsis">{user.name}</p>
+                  <small className="italic block">{user.email}</small>
+                  <Link
+                    to="/profile/$userId"
+                    params={{ userId: String(user.id) }}
+                    preload="intent"
+                    onMouseEnter={() => handleMouseEnter(String(user.id))}
+                    className="text-blue-500 hover:underline text-base"
+                  >
+                    Ver detalhes
+                  </Link>
+                </div>
+
+                <div>
+                  <small className="block whitespace-nowrap">{new Date(user.createdAt).toLocaleString()}</small>
+                </div>
               </li>
             ))}
           </ul>
         </>
       )}
-
-      {!isLoading && isFetching && <p className="mt-5">Atualizando listagem...</p>}
     </div>
   )
 }

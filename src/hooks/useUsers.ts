@@ -4,7 +4,6 @@ import { User } from "./useUser";
 
 export function useUsers() {
   const { data, isLoading, isFetching, refetch } = useQuery({
-    enabled: false,
     queryKey: ["users"],
     queryFn: async (): Promise<User[]> => {
       const response = await fetch('http://localhost:3333/users')
@@ -13,8 +12,12 @@ export function useUsers() {
     },
   });
 
+  const orderedUsers = data?.sort((a, b) => {
+    return a.createdAt > b.createdAt ? -1 : 1
+  })
+
   return {
-    users: data,
+    users: orderedUsers,
     isLoading,
     isFetching,
     refetch
